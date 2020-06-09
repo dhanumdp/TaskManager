@@ -30,6 +30,7 @@
 .task-list-container
 {
     display: flex;
+    position: relative;
     flex-grow: 1;
     padding: 42px;
     border-top-right-radius: 8px;
@@ -98,11 +99,20 @@
     }
     
 
-    &.complete
+    &.completed
     {
         text-decoration: line-through;
         opacity: 0.8;
     }
 
+}
+
+.circle-add-button{
+     height: 50px;
+     width: 50px;
+     bottom: 35px;
+     right : 35px;
+     position: absolute;
+     border-radius: 50%;
 }
 

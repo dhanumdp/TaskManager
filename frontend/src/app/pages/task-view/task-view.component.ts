@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/services/task.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Task } from 'src/models/task';
+import { List } from 'src/models/list';
 
 @Component({
   selector: 'app-task-view',
@@ -16,16 +18,18 @@ export class TaskViewComponent implements OnInit {
 
   ngOnInit(): void {
 
+
+
     this.route.params.subscribe((params : Params)=>{
       console.log(params);
 
-      this.taskService.getTasks(params.listId).subscribe((tasks)=>{
+      this.taskService.getTasks(params.listId).subscribe((tasks : Task[])=>{
           this.tasks = tasks;
           console.log(tasks)
       })
     })
 
-    this.taskService.getLists().subscribe((lists : any)=>{
+    this.taskService.getLists().subscribe((lists : List[])=>{
         console.log(lists)
 
         this.lists = lists
@@ -33,6 +37,19 @@ export class TaskViewComponent implements OnInit {
   } 
 
 
+  OnTaskClick(task : Task)
+  {
+    // we want to set the task to be completed
+
+    this.taskService.completed(task).subscribe(()=>{
+      console.log("Updated Successfully")
+
+      //once completed successfully
+
+      task.completed = !task.completed;
+
+    })
+  }
 
 
 }
